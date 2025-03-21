@@ -1,0 +1,4 @@
+# build
+ccd
+*.o
+*.d
