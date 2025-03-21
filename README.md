@@ -25,5 +25,13 @@ make help
 ## Usage
 
 ```bash
-./ccd <filename>
+./ccd [options] [filename]
 ```
+
+## Options
+
+- `-h`, `--help`:
+Show the help message and a summary of program options.
+
+- `-c cols`:
+Specify the number of octets to display per line. The default is 16.
