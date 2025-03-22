@@ -31,7 +31,10 @@ make help
 ## Options
 
 - `-h`, `--help`:
-Show the help message and a summary of program options.
+Print the help summary.
 
 - `-c cols`:
-Specify the number of octets to display per line. The default is 16.
+Format <cols> octets per line. Default 16.
+
+- `-g bytes`:
+Number of octets per group in normal output. Default 2.
