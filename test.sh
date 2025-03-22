@@ -2,12 +2,6 @@
 
 set -euo pipefail
 
-#     The diff utility exits with one of the following values:
-#
-#           0       No differences were found.
-#           1       Differences were found.
-#           >1      An error occurred.
-
 if [[ "$#" -ne 1  ]]; then
     echo "USAGE: $0 <num_tests>" >&2
     exit 1
@@ -31,12 +25,15 @@ tmp_file=$(mktemp)
 trap "rm -f $tmp_file" EXIT
 
 for ((i = 1; i <= $num_tests; ++i)); do
-   cat /dev/urandom | head -n 10 > $tmp_file || true
+   random_num=$(( RANDOM % (64 - 2 + 1) + 2 ))
+   cat /dev/urandom | head -n "$random_num" > $tmp_file || true
+
+   echo -n "TEST $i: "
 
    if diff <($binary "$tmp_file") <(xxd "$tmp_file") > /dev/null; then
-       echo "TEST $i: PASS"
+       echo "PASS"
     else
-       echo "TEST $i: FAIL"
+       echo "FAIL"
        diff <($binary $tmp_file) <(xxd $tmp_file) >&2
        exit 1
    fi
