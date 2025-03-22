@@ -1,15 +1,19 @@
 BINARY = ccd
-SRC = main.c
+SRCDIRS = . ./lib
+INCDIRS = . ./include
 
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -Wpedantic -Wconversion
+
+INCLUDES = $(foreach DIR,$(INCDIRS),-I$(DIR))
 DEPFLAGS = -MP -MD
 DFLAGS = -DDEBUG -g
 
-CFLAGS += $(DEPFLAGS)
+CFLAGS += $(INCLUDES) $(DEPFLAGS)
 
-OBJFILES = $(patsubst %.c, %.o, $(SRC)) 
-DEPFILES = $(patsubst %.c, %.d, $(SRC)) 
+CFILES = $(foreach DIR,$(SRCDIRS),$(wildcard $(DIR)/*.c))
+OBJFILES = $(patsubst %.c, %.o, $(CFILES)) 
+DEPFILES = $(patsubst %.c, %.d, $(CFILES)) 
 
 .PHONY: all debug clean help
 
