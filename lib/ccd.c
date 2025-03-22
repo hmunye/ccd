@@ -1,11 +1,11 @@
-#include "../include/ccd.h"
-
 #include <stdlib.h>
 #include <string.h>
 
-flags user_flags = FLAG_NONE;
+#include "ccd.h"
+
+ccd_flags_t user_flags = FLAG_NONE;
 size_t bytes_per_line = DEFAULT_BYTES_PER_LINE;
-size_t byte_spacing = DEFAULT_BYTE_GROUPING;
+size_t byte_grouping = DEFAULT_BYTE_GROUPING;
 
 void parse_args(int argc, char **argv) {
     for (int i = 1; i < argc; ++i) {
@@ -47,7 +47,7 @@ void parse_args(int argc, char **argv) {
                     exit(EXIT_FAILURE);
                 }
 
-                byte_spacing = (size_t)arg;
+                byte_grouping = (size_t)arg;
                 user_flags |= FLAG_BYTE_GROUPING;
 
                 continue;
@@ -83,7 +83,7 @@ void print_dump(FILE *file) {
         printf("%08zx: ", byte_offset);
 
         for (size_t i = 0; i < bytes_read; i++) {
-            if (i != 0 && i % byte_spacing == 0) {
+            if (i != 0 && i % byte_grouping == 0) {
                 printf(" ");
             }
 
@@ -94,7 +94,7 @@ void print_dump(FILE *file) {
             // padding = (remaining bytes) * 2 for hex width, + spaces between
             // byte groups
             size_t padding = (bytes_per_line - bytes_read) * 2 +
-                             ((bytes_per_line - bytes_read) / byte_spacing);
+                             ((bytes_per_line - bytes_read) / byte_grouping);
             printf("%*s", (int)padding, "");
         }
 

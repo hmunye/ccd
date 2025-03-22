@@ -13,19 +13,19 @@ typedef enum {
     FLAG_HELP = 1 << 0,           /* `-h` or `--help` flag  */
     FLAG_BYTES_PER_LINE = 1 << 1, /* `-c` flag  */
     FLAG_BYTE_GROUPING = 1 << 2   /* `-g` flag  */
-} flags;
+} ccd_flags_t;
 
-extern flags user_flags;
+extern ccd_flags_t user_flags;
 extern size_t bytes_per_line;
-extern size_t byte_spacing;
+extern size_t byte_grouping;
 
-/* parse command-line arguments and sets appropriate flags and options */
+/* parse command-line arguments, setting flags and configuration options */
 void parse_args(int argc, char **argv);
 
-/* print usage information for the program */
+/* print usage instructions for the program */
 void print_help(const char *prog_name);
 
-/* read data from a file, process it into a hex/ascii dump format, and print */
+/* read a file and print its contents in a hex/ascii dump format */
 void print_dump(FILE *file);
 
 #endif  // CCD_H

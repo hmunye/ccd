@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "include/ccd.h"
+#include "ccd.h"
 
 int main(int argc, char **argv) {
     if (argc < 2) {
